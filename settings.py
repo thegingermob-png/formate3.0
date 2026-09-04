@@ -41,6 +41,8 @@ ROOT_URLCONF = "config.urls"
 TEMPLATES = [{"BACKEND": "django.template.backends.django.DjangoTemplates", "DIRS": [BASE_DIR / "templates"], "APP_DIRS": True, "OPTIONS": {"context_processors": ["django.template.context_processors.request", "django.contrib.auth.context_processors.auth", "django.contrib.messages.context_processors.messages"]}}]
 WSGI_APPLICATION = "config.wsgi.application"
 DATABASES = {"default": env.db("DATABASE_URL", default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}")}
+## !! this line defaults back to sqlite3, this is handy for development so it wont fail, for go-live id make this similiar to your secret key configuration a fail is better then creating a local database.
+
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator", "OPTIONS": {"min_length": 12}},
@@ -62,6 +64,9 @@ LOGOUT_REDIRECT_URL = "/"
 PUBLIC_SITE_URL = env("PUBLIC_SITE_URL", default="https://walrus-app-aebgn.ondigitalocean.app").rstrip("/")
 
 INTEGRATION_TOKEN_ENCRYPTION_KEY = env("INTEGRATION_TOKEN_ENCRYPTION_KEY", default="")
+##!! eventually this MFA token may be from different sources potentially, id make sure this is set as manditory in production go-live 
+
+
 CLIO_CLIENT_ID = env("CLIO_CLIENT_ID", default="")
 CLIO_CLIENT_SECRET = env("CLIO_CLIENT_SECRET", default="")
 CLIO_REDIRECT_URI = env("CLIO_REDIRECT_URI", default="")
@@ -129,7 +134,7 @@ if not DEBUG:
     SECURE_CROSS_ORIGIN_OPENER_POLICY = "same-origin"
 
 
-# Emit application errors to DigitalOcean Runtime Logs.
+
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
