@@ -42,6 +42,7 @@ urlpatterns = [
     path("api/deadlines/<uuid:deadline_id>/status/", deadline_status_api, name="deadline-status-api"),
     path("accounts/login/", login_view, name="login"),
     path("accounts/invitations/<str:token>/", accept_staff_invitation, name="accept-staff-invitation"),
+    ##!! theres a world this can leak the token in browser or logs 
     path("accounts/jurisdiction/", jurisdiction_setup, name="jurisdiction-setup"),
     path("accounts/me/", my_account, name="my-account"),
     path("accounts/mfa/setup/", mfa_setup, name="mfa-setup"),
