@@ -19,6 +19,7 @@ def _migration_lock():
             yield
         finally:
             fcntl.flock(lock_file.fileno(), fcntl.LOCK_UN)
+            ##!! this section seems to split deployment with more users it may be an issue but im not sure. 
 
 
 # DigitalOcean's component run command can override the repository Procfile.
